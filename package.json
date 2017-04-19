@@ -1,7 +1,7 @@
 {
   "name": "egg-swagger-ui",
   "version": "0.1.0",
-  "description": "swagger-ui for egg.",
+  "description": "swagger-ui plugin for egg.",
   "eggPlugin": {
     "name": "swagger-ui"
   },
