@@ -5,9 +5,10 @@
   "eggPlugin": {
     "name": "swagger-ui"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "files": [
+    "app",
+    "assets"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/m31271n/egg-swagger-ui.git"
@@ -16,8 +17,6 @@
     "swagger-ui",
     "egg"
   ],
-  "author": "m31271n",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/m31271n/egg-swagger-ui/issues"
   },
@@ -30,5 +29,13 @@
     "koa-mount": "^3.0.0",
     "koa-static": "^3.0.0",
     "pify": "^2.3.0"
-  }
+  },
+  "engines": {
+    "node": ">=7.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "m31271n",
+  "license": "MIT"
 }
