@@ -1,12 +1,17 @@
+'use strict'
+
 const Koa = require('koa')
-const mw = require('../app/middleware/mw')
+const swaggerUi = require('../app/middleware/swagger-ui')
 const path = require('path')
 
 const app = new Koa()
 
-app.use(mw({
-  apiDefFile: path.join(__dirname, 'swagger.yaml')
+app.use(swaggerUi({
+  mountPath: '/docs-test',
+  swaggerFile: path.join(__dirname, 'swagger.yaml')
 }, app))
 
-app.listen(3000)
-console.log('listening on port 3000')
+const port = 3000
+app.listen(port, () => {
+  console.log(`listening on port ${port}`)
+})
