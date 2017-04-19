@@ -9,15 +9,15 @@ const readFile = pify(fs.readFile)
 
 module.exports = (options, app) => {
   const {
-    routePath: routePath = '/docs',
-    apiDefFile
+    mountPath,
+    swaggerFile
   } = options
 
   const viewPath = path.join(__dirname, '../../assets/view')
   const swaggerUIPath = path.join(__dirname, '../../assets/swagger-ui')
 
-  const apiDefBasename = path.basename(apiDefFile)
-  const apiDefPath = path.join(routePath, apiDefBasename)
+  const swaggerFileBasename = path.basename(swaggerFile)
+  const swaggerFilePath = path.join(mountPath, swaggerFileBasename)
 
   render(app, {
     root: viewPath,
@@ -27,22 +27,22 @@ module.exports = (options, app) => {
     debug: false
   })
 
-  const staticMiddleware = mount(routePath, serve(swaggerUIPath))
+  const staticMiddleware = mount(mountPath, serve(swaggerUIPath))
 
   const middleware = async function (ctx, next) {
     const { path, method } = ctx.request
 
-    if (path === routePath && method === 'GET') {
+    if (path === mountPath && method === 'GET') {
       const { origin, path } = ctx.request
       const baseUrl = `${origin}${path}`
       ctx.state.baseUrl = baseUrl
-      ctx.state.apiDefUrl = `${baseUrl}/${apiDefBasename}`
+      ctx.state.swaggerFileUrl = `${baseUrl}/${swaggerFileBasename}`
       await ctx.render('index')
-    } else if (path === apiDefPath && method === 'GET') {
-      const def = await readFile(apiDefFile, 'utf8')
+    } else if (path === swaggerFilePath && method === 'GET') {
+      const def = await readFile(swaggerFile, 'utf8')
       ctx.type = 'text/plain; charset=utf-8'
       ctx.body = def
-    } else if (path.startsWith(routePath) && method === 'GET') {
+    } else if (path.startsWith(mountPath) && method === 'GET') {
       await staticMiddleware(ctx, next)
     } else {
       await next()
