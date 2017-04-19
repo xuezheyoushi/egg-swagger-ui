@@ -43,7 +43,7 @@ module.export = {
 Default value:
 
 + `routePath`: `/docs`
-+ `swaggerFile`: `assets/default-swagger.yaml` the example swagger file bundled with egg-swagger-ui
++ `swaggerFile`: `assets/default-swagger.yaml` - the example swagger file bundled with egg-swagger-ui
 
 ## License
 
